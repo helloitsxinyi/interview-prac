@@ -4,19 +4,20 @@ from typing import Dict
 from lld.parkingLot.parkingSpot import ParkingSpot
 
 
-class ParkingObserver(ABC):
+class ParkingSubscriber(ABC):
     @abstractmethod
     def update(self, levelId: int, available: int, parkingSpotsMap: Dict[int, ParkingSpot]):
         pass
 
 # implement ParkingSubject interface just in case we want to implement publishers for various groupings (eg across level, across whole carpark etc)
-class ParkingSubject(ABC):
+class ParkingPublisher(ABC):
     @abstractmethod
-    def add_observer(self, observer:ParkingObserver):
+    def add_subscriber(self, observer:ParkingSubscriber):
         pass
 
-    def remove_observer(self, observer:ParkingObserver):
+    @abstractmethod
+    def remove_subscriber(self, observer:ParkingSubscriber):
         pass
-
-    def notify_observers(self):
+    @abstractmethod
+    def notify_subscribers(self):
         pass
